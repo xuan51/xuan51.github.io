@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"xuan51.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Octave精于矩阵运算，是一种解释性语言">
+<meta property="og:type" content="article">
+<meta property="og:title" content="octave">
+<meta property="og:url" content="https://xuan51.github.io/202209/06/01/octave/index.html">
+<meta property="og:site_name" content="剑阁">
+<meta property="og:description" content="Octave精于矩阵运算，是一种解释性语言">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xuan51.github.io/202209/06/01/octave/image-20220906233536180.png">
+<meta property="og:image" content="https://xuan51.github.io/202209/06/01/octave/image-20220907193057925.png">
+<meta property="og:image" content="https://xuan51.github.io/202209/06/01/octave/image-20220907210229482.png">
+<meta property="og:image" content="https://xuan51.github.io/202209/06/01/octave/image-20220907210740751.png">
+<meta property="og:image" content="https://xuan51.github.io/202209/06/01/octave/image-20220907211122272.png">
+<meta property="og:image" content="https://xuan51.github.io/202209/06/01/octave/image-20220907213221511.png">
+<meta property="og:image" content="https://xuan51.github.io/202209/06/01/octave/image-20220908160538771.png">
+<meta property="og:image" content="https://xuan51.github.io/202209/06/01/octave/image-20220909082230404.png">
+<meta property="og:image" content="https://xuan51.github.io/202209/06/01/octave/image-20220909083617804.png">
+<meta property="og:image" content="https://xuan51.github.io/202209/06/01/octave/image-20220909084110151.png">
+<meta property="og:image" content="https://xuan51.github.io/202209/06/01/octave/image-20220909090102233.png">
+<meta property="og:image" content="https://xuan51.github.io/202209/06/01/octave/image-20220909092518664.png">
+<meta property="og:image" content="https://xuan51.github.io/202209/06/01/octave/image-20220909093328080.png">
+<meta property="article:published_time" content="+202209-06-01T15:36:36.000Z">
+<meta property="article:modified_time" content="2022-09-09T12:06:58.230Z">
+<meta property="article:author" content="xuan">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xuan51.github.io/202209/06/01/octave/image-20220906233536180.png">
+
+<link rel="canonical" href="https://xuan51.github.io/202209/06/01/octave/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>octave | 剑阁</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/rss2.xml" title="剑阁" type="application/rss+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+      <a target="_blank" rel="noopener" href="https://github.com/xuan51" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">剑阁</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-resources">
+
+    <a href="/resources/" rel="section"><i class="fa fa-download fa-fw"></i>资源</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://xuan51.github.io/202209/06/01/octave/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="xuan">
+      <meta itemprop="description" content="不患无位，患所以立；不患莫己知，求为可知也。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="剑阁">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          octave
+        </h1>
+
+        <div class="post-meta">
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：202209-06-01 23:36:36" itemprop="dateCreated datePublished" datetime="202209-06-01T23:36:36+08:00">202209-06-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-09-09 20:06:58" itemprop="dateModified" datetime="2022-09-09T20:06:58+08:00">2022-09-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/octave/" itemprop="url" rel="index"><span itemprop="name">octave</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Octave精于矩阵运算，是一种解释性语言</p>
+<span id="more"></span>
+
+
+
+<h1 id="Octave"><a href="#Octave" class="headerlink" title="Octave"></a>Octave</h1><h2 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h2><blockquote>
+<p>简单计算</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">octave:1&gt; 2+2</span><br><span class="line">ans = 4</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>优先级</code>：括号最大，乘方其次，之后是乘除、加减</li>
+<li><code>ans变量</code>：存储每次最近运算的结果</li>
+</ul>
+<blockquote>
+<p>内建函数</p>
+</blockquote>
+<img src="/202209/06/01/octave/image-20220906233536180.png" alt="image-20220906233536180">
+
+
+
+<blockquote>
+<p>显示</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">octave:32&gt; disp(&#x27;output string&#x27;)</span><br><span class="line">output string</span><br><span class="line">octave:33&gt; disp(t)</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>显示一个值或者字符串</li>
+</ul>
+<blockquote>
+<p>特殊变量：本身已经定义</p>
+</blockquote>
+<p><code>pi</code>，<code>i</code>和<code>j</code>等</p>
+<blockquote>
+<p>变量</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">octave:1&gt; deg = pi/180</span><br><span class="line">deg = 0.017453</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>类型不用声明</p>
+</li>
+<li><p>所有变量都是浮点型或者字符串</p>
+</li>
+<li><p>octave的结果只以一定的精度展示出来，而实际上它存储的变量的精度要比其显示的高很多</p>
+</li>
+<li><p>变量名区分大小写</p>
+</li>
+<li><p>可以重新定义特殊变量和内建函数（覆盖），但不提倡</p>
+</li>
+<li><p>查看某个变量的值（输入变量名并回车）</p>
+<ul>
+<li>&#96;&#96;&#96;octave<br>octave:10&gt; deg<br>deg &#x3D; 5<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 查看当前所有变量</span><br><span class="line"></span><br><span class="line">  - ```octave</span><br><span class="line">    octave:3&gt; who</span><br><span class="line">    Variables visible from the current scope:</span><br><span class="line">    </span><br><span class="line">    ans  deg</span><br><span class="line">    </span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>从当前的变量空间中删除某个变量</p>
+<ul>
+<li>&#96;&#96;&#96;octave<br>octave:4&gt; clear deg<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&gt; 数值及其格式</span><br><span class="line"></span><br><span class="line">- 计算机内二进制形式存储</span><br><span class="line"></span><br><span class="line">- Octave通常只显示一定的有效数字</span><br><span class="line"></span><br><span class="line">- format命令能让你选择数值显示的不同方式</span><br><span class="line"></span><br><span class="line">  - ```octave</span><br><span class="line">    octave:1&gt; deg = pi</span><br><span class="line">    deg = 3.1416</span><br><span class="line">    #以15位的有效数字显示数值，这也是octave程序本身的计算精度</span><br><span class="line">    octave:2&gt; format long</span><br><span class="line">    octave:3&gt; deg</span><br><span class="line">    deg = 3.141592653589793</span><br><span class="line">    #不存在int</span><br><span class="line">    octave:4&gt; format int</span><br><span class="line">    error: format: unrecognized format state &#x27;int&#x27;</span><br><span class="line">    #默认方式显示数据</span><br><span class="line">    octave:5&gt; format short</span><br><span class="line">    octave:6&gt; deg</span><br><span class="line">    deg = 3.1416</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>使用科学记数法来表达数值很大或者很小的数字</p>
+<ul>
+<li>&#96;&#96;&#96;octave<br>octave:9&gt; deg * 0.000000001<br>ans &#x3D; 3.1416e-09<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  - 科学记数法的数值输入形式也同样能被Octave认可</span><br><span class="line"></span><br><span class="line">  - 其他被认可的数据形式</span><br><span class="line"></span><br><span class="line">    1. 复数（3+4i)</span><br><span class="line">    2. 无穷大（Inf）一个数除零得到的结果</span><br><span class="line">    3. 非数值（NaN）零除以零或者其他数学表达式无法得到合法结果时的返回值</span><br><span class="line">    4. Inf和NaN可以参与运算，得到的结果通常还是Inf或者NaN</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&gt; 数值的表示和精度</span><br><span class="line"></span><br><span class="line">```octave</span><br><span class="line">octave:14&gt; 1-0.2-0.2-0.2-0.2-0.2</span><br><span class="line">ans = 5.5511e-17</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>造成的原因在于0.2无法使用有效的位数精确表示出来</p>
+</li>
+</ul>
+<blockquote>
+<p>载入和保存数据</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">octave:15&gt; save anyname</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>将整个工作空间上的变量存储到默认workSpace（可修改）下的anyname文件中</li>
+<li><code>C:\Users\21906\anyname</code></li>
+<li>还有可能是这个目录<code>...\GNU Octave\Octave-7.2.0\mingw64\bin</code></li>
+<li>修改工作目录<ul>
+<li><img src="/202209/06/01/octave/image-20220907193057925.png" alt="image-20220907193057925" style="zoom:75%;"></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">octave:16&gt; load anyname</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>载入之前保存的文件</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">octave:3&gt; save filename var1 var2 ... </span><br><span class="line">octave:1&gt; load filename</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>载入或保存特定的变量</li>
+</ul>
+<blockquote>
+<p>重复之前命令</p>
+</blockquote>
+<ul>
+<li>通过方向建上和下来查看之前输入的命令</li>
+</ul>
+<blockquote>
+<p>查看命令或函数功能</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">octave:1&gt; help sin</span><br><span class="line">&#x27;sin&#x27; is a built-in function from the file libinterp/corefcn/mappers.cc</span><br><span class="line"></span><br><span class="line"> -- sin (X)</span><br><span class="line">     Compute the sine for each element of X in radians.</span><br><span class="line"></span><br><span class="line">     See also: asin, sind, sinh.</span><br><span class="line"></span><br><span class="line">Additional help for built-in functions and operators is</span><br><span class="line">available in the online version of the manual.  Use the command</span><br><span class="line">&#x27;doc &lt;topic&gt;&#x27; to search the manual index.</span><br><span class="line"></span><br><span class="line">Help and information about Octave is also available on the WWW</span><br><span class="line">at https://www.octave.org and via the help@octave.org</span><br><span class="line">mailing list.</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>取消一个命令</p>
+</blockquote>
+<ul>
+<li><code>Ctrl + C</code>：当一个命令执行很长时间时（或程序bug让程序无限重复等），中止该程序的执行</li>
+</ul>
+<blockquote>
+<p>分号</p>
+</blockquote>
+<p>在一行语句的末尾添上分号，Octave将不会显出相应的结果</p>
+<h2 id="数组和向量"><a href="#数组和向量" class="headerlink" title="数组和向量"></a>数组和向量</h2><blockquote>
+<p> 构造向量</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">octave:7&gt; a = [1 2 3]</span><br><span class="line">a =</span><br><span class="line">   1   2   3</span><br><span class="line">octave:8&gt; a = [1, 2, 3]</span><br><span class="line">a =</span><br><span class="line">   1   2   3</span><br><span class="line">octave:9&gt; a = [1; 2; 3]</span><br><span class="line">a =</span><br><span class="line">   1</span><br><span class="line">   2</span><br><span class="line">   3</span><br><span class="line">octave:10&gt; a = [ 1</span><br><span class="line">&gt; 2</span><br><span class="line">&gt; 3]</span><br><span class="line">a =</span><br><span class="line">   1</span><br><span class="line">   2</span><br><span class="line">   3</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>空格或逗号隔开的是行向量</li>
+<li>分号或回车隔开的是列向量</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">octave:15&gt; d = [a 6]</span><br><span class="line">d =</span><br><span class="line">   1   2   3   6</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>通过已经定义的向量来定义新的向量</li>
+</ul>
+<blockquote>
+<p>冒号表达式</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">octave:20&gt; a = 2: 6</span><br><span class="line">a =</span><br><span class="line">   2   3   4   5   6</span><br><span class="line">octave:19&gt; a = 2: 0.5: 4</span><br><span class="line">a =</span><br><span class="line">    2.0000    2.5000    3.0000    3.5000    4.0000</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>可以在第一个和第二个数之间插入第三个参数来声明向量中元素之间的递增量</li>
+<li>增量可以是负数</li>
+</ul>
+<blockquote>
+<p>大矩阵或矩阵的显示</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">octave:23&gt; v = 1: 1000</span><br><span class="line">-- less -- (f)orward, (b)ack, (q)uit</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>分屏显示</p>
+</li>
+<li><p>开启或关闭这个显示功能</p>
+<ul>
+<li>&#96;&#96;&#96;octave<br>octave:26&gt; more on<br>octave:27&gt; more off<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&gt; 向量构造函数</span><br><span class="line"></span><br><span class="line">&lt;img src=&quot;octave.assets/image-20220907202355581.png&quot; alt=&quot;image-20220907202355581&quot; style=&quot;zoom:80%;&quot; /&gt;</span><br><span class="line"></span><br><span class="line">- `size`函数返回矩阵或者向量的行数和列数</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&gt; 向量中的元素操作</span><br><span class="line"></span><br><span class="line">```octave</span><br><span class="line">octave:39&gt; a = [1:2:6 0]</span><br><span class="line">a =</span><br><span class="line">   1   3   5   0</span><br><span class="line">octave:40&gt; a(1)</span><br><span class="line">ans = 1</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>下标从1开始</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">octave:43&gt; a(2:4)</span><br><span class="line">ans =</span><br><span class="line">   3   5   0</span><br><span class="line">octave:44&gt; a(2:2:4)</span><br><span class="line">ans =</span><br><span class="line">   3   0</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>向量的计算</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">octave:45&gt; 2*a</span><br><span class="line">ans =</span><br><span class="line">    2    6   10    0</span><br><span class="line">octave:49&gt; a+1</span><br><span class="line">ans =</span><br><span class="line">   2   4   6   1</span><br><span class="line">octave:50&gt; a-1</span><br><span class="line">ans =</span><br><span class="line">   0   2   4  -1</span><br><span class="line">octave:52&gt; a/2</span><br><span class="line">ans =</span><br><span class="line">   0.5000   1.5000   2.5000        0</span><br><span class="line">octave:54&gt; a.*a</span><br><span class="line">ans =</span><br><span class="line">    1    9   25    0</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>两个向量相乘遵循矩阵乘法法则</li>
+<li>如果要进行对应元素乘除法可以在运算符前加<code>.</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">octave:56&gt; a.^2</span><br><span class="line">ans =</span><br><span class="line">    1    9   25    0</span><br><span class="line">octave:57&gt; 2.^a</span><br><span class="line">ans =</span><br><span class="line">    2    8   32    1</span><br><span class="line">octave:58&gt; a.^a</span><br><span class="line">ans =</span><br><span class="line">      1     27   3125      1</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>逐个元素乘法计算</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">octave:60&gt; sin([0:pi/2:pi])</span><br><span class="line">ans =</span><br><span class="line">        0   1.0000   0.0000</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>大多数函数能以向量为输入</li>
+</ul>
+<h2 id="画图"><a href="#画图" class="headerlink" title="画图"></a>画图</h2><p>Octave通过调用另一个开源软件<a target="_blank" rel="noopener" href="http://www.gnuplot.info/">GNUPLOT</a>来实现非常丰富的画图功能</p>
+<p>若是对图片的细节要求更高，推荐将数据格式化输出并单独使用gnuplot生成图形</p>
+<blockquote>
+<p>基本画图命令</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">octave:67&gt; plot([0,1,2], [0,1,4])</span><br></pre></td></tr></table></figure>
+
+<img src="/202209/06/01/octave/image-20220907210229482.png" alt="image-20220907210229482" style="zoom:75%;">
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">octave:71&gt; plot([0,1,2], [0,1,4], &#x27;ro&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>使用红色和圆圈来画图</p>
+<img src="/202209/06/01/octave/image-20220907210740751.png" alt="image-20220907210740751" style="zoom:75%;">
+
+<p>颜色和样式（见help plot）（†仅在Matlab中存在的选项）</p>
+<img src="/202209/06/01/octave/image-20220907211122272.png" alt="image-20220907211122272" style="zoom:100%;">
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">octave:77&gt; title(&#x27;title&#x27;)</span><br><span class="line">octave:78&gt; xlabel(&#x27;x&#x27;)</span><br><span class="line">octave:79&gt; ylabel(&#x27;y&#x27;)</span><br><span class="line">octave:86&gt; grid off</span><br><span class="line">octave:87&gt; grid on</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>title</code>添加标题</li>
+<li><code>xlabel</code>x轴名称</li>
+<li><code>ylabel</code>y轴名称</li>
+<li><code>grid</code>命令为图片添加网格线</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">octave:103&gt; plot(x,y,&#x27;ro&#x27;)</span><br><span class="line">octave:104&gt; hold on</span><br><span class="line">octave:105&gt; plot(x,cos(x),&#x27;g-&#x27;)</span><br><span class="line">octave:106&gt; legend(&#x27;Sine&#x27;, &#x27;Cosine&#x27;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>重新输入plot命令后原图将被覆盖</li>
+<li><code>legend</code>命令为该图片添加相应的图例</li>
+<li><code>hold</code>命令可以将新创建的图片层叠到原图上</li>
+<li><code>hold off</code>命令可以关闭该功能</li>
+</ul>
+<img src="/202209/06/01/octave/image-20220907213221511.png" alt="image-20220907213221511" style="zoom:75%;">
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">octave:12&gt; axis([-1 4 -1 2])</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>设置坐标轴</li>
+<li>x范围为[1, 4]</li>
+<li>y范围为[1, 2]</li>
+</ul>
+<blockquote>
+<p>新窗口绘制</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">octave:3&gt; figure</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>绘制一个新窗口，下一个plot命令将会在新窗口中绘制</li>
+</ul>
+<blockquote>
+<p>返回上一个窗口</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">octave:8&gt; figure(1)</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>保存和打印图片</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">octave:16&gt; print(&#x27;cos.eps&#x27;,&#x27;-deps&#x27;)</span><br><span class="line">octave:17&gt; figure(1)</span><br><span class="line">octave:18&gt; print(&#x27;sin.png&#x27;,&#x27;-dpng&#x27;)</span><br><span class="line">octave:20&gt; print(&#x27;D:\sin.png&#x27;,&#x27;-dpng&#x27;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>可以通过figure切换窗口</li>
+<li>默认保存在workSpace目录下</li>
+<li>可以使用绝对路径</li>
+</ul>
+<h2 id="脚本文件"><a href="#脚本文件" class="headerlink" title="脚本文件"></a>脚本文件</h2><ol>
+<li>可以将一系列命令存入一个Octave脚本之中</li>
+<li>需要有一个<code>.m</code>的后缀，通常也称为<code>M</code>文件</li>
+</ol>
+<blockquote>
+<p>Path问题</p>
+</blockquote>
+<p>Octave中有一个比较重要的环境变量就是path变量，它存储了Octave中函数所在目录的一个列表。当一个函数被调用的时候，Octave就从path变量中的列表中搜索你输入的函数。默认的Octave的path包含一系列的系统目录和当前工作目录 (pwd)。当然你也可以添加自定义的一些目录，并在该目录中存放你自己创建的一些函数或者脚本</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">octave:21&gt; path</span><br><span class="line">Octave&#x27;s search path contains the following directories:</span><br><span class="line">.</span><br><span class="line">E:\Program Files\GNU Octave\Octave-7.2.0\mingw64\lib\octave\7.2.0\site\oct\x86_64-w64-mingw32</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查看path命令</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">octave:22&gt; addpath(&#x27;path&#x27;)</span><br><span class="line">octave:23&gt; savepath</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>添加和保存</li>
+</ul>
+<blockquote>
+<p>创建和编辑脚本</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">octave:1&gt; edit</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>CLI调不出来文本编辑器GUI可以调出来</li>
+<li>可以通过配置文件进行设置</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">%Script to calculate and plot a rectified sine wave</span><br><span class="line">t=linspace(0,10,100)</span><br><span class="line">y=abs(sin(t))% The abs command makes all negative numbers positive</span><br><span class="line">plot(t,y)</span><br><span class="line">title(&#x27;Rectified Sine Wave&#x27;)</span><br><span class="line">xlabel(&#x27;t&#x27;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>百分号符号是表明注释</li>
+<li>将该文件保存为<code>rectsin.m</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">octave:7&gt; rectsin</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>运行该脚本</li>
+<li>默认从workSpace中读取</li>
+</ul>
+<blockquote>
+<p>查看拥有的脚本</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">octave:1&gt; what</span><br><span class="line">M-files in directory E:\Program Files\GNU Octave\workSpace:</span><br><span class="line">   rectsin.m</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>获取一个你当前所有的脚本和数据的列表</li>
+<li><code>help rectsin</code>：一个脚本文件的头几行注释是该脚本的描述</li>
+</ul>
+<h2 id="控制语句"><a href="#控制语句" class="headerlink" title="控制语句"></a>控制语句</h2><h3 id="if…else语句"><a href="#if…else语句" class="headerlink" title="if…else语句"></a>if…else语句</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">if t == 1</span><br><span class="line">    f = 1</span><br><span class="line">    g = 1</span><br><span class="line">elseif t == 2</span><br><span class="line">	f = 2</span><br><span class="line">else</span><br><span class="line">	f = 0</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>通常使用在脚本之中，同样也能用在命令行中</li>
+<li>和C++语法有一定的差异<ol>
+<li>条件不需要括起来（也可以括起来使程序更加明了）</li>
+<li>程序块不需要大括号括起来</li>
+<li>需要end命令来标识if语句结束</li>
+<li>if…end和if…endif都是合法的</li>
+<li>使用end可以让Octave和Matlab文件兼容</li>
+</ol>
+</li>
+<li>真返回1假返回0</li>
+<li>布尔表达式<ul>
+<li><img src="/202209/06/01/octave/image-20220908160538771.png" alt="image-20220908160538771" style="zoom:100%;"></li>
+</ul>
+</li>
+</ul>
+<h3 id="switch语句"><a href="#switch语句" class="headerlink" title="switch语句"></a>switch语句</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">t = &#x27;t&#x27;</span><br><span class="line">switch t</span><br><span class="line">    case &#x27;x&#x27;</span><br><span class="line">        t = 0</span><br><span class="line">    case &#x27;t&#x27;</span><br><span class="line">        t = 1</span><br><span class="line">    otherwise</span><br><span class="line">        t = -1</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>不需要break语句</li>
+</ul>
+<h3 id="for语句"><a href="#for语句" class="headerlink" title="for语句"></a>for语句</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for n = 1:5</span><br><span class="line">    disp(n)</span><br><span class="line">    f(n) = n;</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>多使用向量计算而不是for循环，通常for循环会慢很多</li>
+<li>加入分号能避免每次执行循环时的输出</li>
+</ul>
+<h3 id="while语句"><a href="#while语句" class="headerlink" title="while语句"></a>while语句</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x = 0</span><br><span class="line">while x &lt; 10</span><br><span class="line">    x += 1;</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><ol>
+<li><p>参数通过值传递</p>
+</li>
+<li><p>能返回多个返回值</p>
+</li>
+<li><p>跟脚本一样是写入一个纯文本文件中的</p>
+</li>
+<li><p>函数文件第一行遵循如下格式</p>
+<ul>
+<li>&#96;&#96;&#96;octave<br>function [output1, output2, …] &#x3D; name(input1, input2, …)<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">5. 每个函数写在不同的M文件中，该M文件名必须与函数名一致</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 函数定义</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">```octave</span><br><span class="line">function s = sind(x)</span><br><span class="line">% 角度制正弦函数</span><br><span class="line">s = sin(x*pi/180);</span><br><span class="line">endfunction</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>改行表示定义的是一个函数而不是脚本。定义了一个sind函数，有一个输入参数和一个返回值</p>
+</li>
+<li><p>该行是注释行。<code>help sind</code>的返回内容，注意使用中文时的字符集</p>
+</li>
+<li><p>改行实现函数的真正功能</p>
+</li>
+<li><p>结尾需以endfunction结束（通常不需要return语句，不过可以使用该语句从函数体中间跳出来终止函数体）</p>
+<ul>
+<li>error函数可以打印一个信息并中止该函数的执行</li>
+</ul>
+</li>
+<li><p><strong>同样适用于向量参数的输入</strong></p>
+</li>
+</ol>
+<h2 id="矩阵和向量"><a href="#矩阵和向量" class="headerlink" title="矩阵和向量"></a>矩阵和向量</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">octave:13&gt; A = [1 2 3</span><br><span class="line">&gt; 4 5 6]</span><br><span class="line">A =</span><br><span class="line">   1   2   3</span><br><span class="line">   4   5   6</span><br><span class="line">octave:14&gt; B = [1 2; 3 4; 5 6]</span><br><span class="line">B =</span><br><span class="line">   1   2</span><br><span class="line">   3   4</span><br><span class="line">   5   6</span><br><span class="line">octave:15&gt; C = [1:3; 8:-2:4]</span><br><span class="line">C =</span><br><span class="line">   1   2   3</span><br><span class="line">   8   6   4</span><br><span class="line">% 逐行生成矩阵</span><br><span class="line">octave:16&gt; D = [1 2 3]</span><br><span class="line">octave:17&gt; D = [D; 4 5 6]</span><br><span class="line">D =</span><br><span class="line">   1   2   3</span><br><span class="line">   4   5   6</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="矩阵乘法"><a href="#矩阵乘法" class="headerlink" title="矩阵乘法"></a>矩阵乘法</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">octave:20&gt; A*B</span><br><span class="line">ans =</span><br><span class="line">   22   28</span><br><span class="line">   49   64</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>$(l × m) ∗ (m × n) → (l × n) $</p>
+</li>
+<li><p>如果是方阵还可以使用矩阵乘方计算</p>
+<ul>
+<li>&#96;&#96;&#96;octave<br>octave:23&gt; A &#x3D; [1 2<blockquote>
+<p>3 4];<br>octave:24&gt; A^2<br>ans &#x3D;<br>7   10<br>   15   22</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  - $A^2 = A * A$</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 转置算符</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">```octave</span><br><span class="line">octave:25&gt; A</span><br><span class="line">A =</span><br><span class="line">   1   2</span><br><span class="line">   3   4</span><br><span class="line">octave:26&gt; A&#x27;</span><br><span class="line">ans =</span><br><span class="line">   1   3</span><br><span class="line">   2   4</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>转置操作用单引号实现</p>
+</li>
+</ul>
+<h3 id="矩阵创建函数"><a href="#矩阵创建函数" class="headerlink" title="矩阵创建函数"></a>矩阵创建函数</h3><blockquote>
+<p>创建单位矩阵</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">octave:27&gt; I = eye(4)</span><br><span class="line">I =</span><br><span class="line">Diagonal Matrix</span><br><span class="line">   1   0   0   0</span><br><span class="line">   0   1   0   0</span><br><span class="line">   0   0   1   0</span><br><span class="line">   0   0   0   1</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>数学上通常用<code>I</code>来表示单位矩阵</li>
+</ul>
+<blockquote>
+<p>对角矩阵</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">octave:28&gt; diag([1 7 2])</span><br><span class="line">ans =</span><br><span class="line">Diagonal Matrix</span><br><span class="line">   1   0   0</span><br><span class="line">   0   7   0</span><br><span class="line">   0   0   2</span><br><span class="line">octave:29&gt; diag(A)</span><br><span class="line">ans =</span><br><span class="line">   1</span><br><span class="line">   4</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>单位矩阵是对角矩阵的特殊情况</li>
+<li>对一个矩阵使用该函数将返回该矩阵的对角元</li>
+</ul>
+<blockquote>
+<p>空矩阵</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">octave:30&gt; E = []</span><br><span class="line">E = [](0x0)</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>创建复合矩阵</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">octave:1&gt; B = [2 0; 0 1; 1 0]</span><br><span class="line">octave:2&gt; comp = [eye(3) B; B&#x27; zeros(2, 2)]</span><br><span class="line">comp =</span><br><span class="line">   1   0   0   2   0</span><br><span class="line">   0   1   0   0   1</span><br><span class="line">   0   0   1   1   0</span><br><span class="line">   2   0   1   0   0</span><br><span class="line">   0   1   0   0   0</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>注意各个子矩阵的行列数的匹配</li>
+</ul>
+<blockquote>
+<p>引用矩阵元素</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">octave:6&gt; comp(1, 1)</span><br><span class="line">ans = 1</span><br><span class="line">octave:7&gt; comp(1:2, 4)</span><br><span class="line">ans =</span><br><span class="line">   2</span><br><span class="line">   0</span><br><span class="line">octave:8&gt; comp(3, :)</span><br><span class="line">ans =</span><br><span class="line">   0   0   1   1   0</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>可以用冒号来指定元素的范围</li>
+<li>单独使用该符号表示整行或者整列</li>
+</ul>
+<blockquote>
+<p>使用冒号进行矩阵元的赋值</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">octave:9&gt; comp(3, 2:3) = [0 1]</span><br><span class="line">comp =</span><br><span class="line">   1   0   0   2   0</span><br><span class="line">   0   1   0   0   1</span><br><span class="line">   0   0   1   1   0</span><br><span class="line">   2   0   1   0   0</span><br><span class="line">   0   1   0   0   0</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>基本矩阵函数</p>
+</blockquote>
+<img src="/202209/06/01/octave/image-20220909082230404.png" alt="image-20220909082230404" style="zoom:100%;">
+
+
+
+<h2 id="画图进阶"><a href="#画图进阶" class="headerlink" title="画图进阶"></a>画图进阶</h2><p>Octave不仅仅能画简单的二维直角坐标系下的曲线。通过调用GNUPLOT，它可以画出 条形图，3D 表面，等高线图和极坐标图等等</p>
+<blockquote>
+<p>子图</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">octave:17&gt; subplot(2, 1, 1)</span><br><span class="line">octave:18&gt; plot(x, sin(x))</span><br><span class="line">octave:19&gt; subplot(2, 1, 2)</span><br><span class="line">octave:20&gt; plot(x, cos(x))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在同一个窗口中创建多幅图片。<code>subplot(rows, columns , select)</code></li>
+<li>子窗口序号按照从上到下、从左到右的次序递增</li>
+<li><img src="/202209/06/01/octave/image-20220909083617804.png" alt="image-20220909083617804" style="zoom:80%;"></li>
+</ul>
+<blockquote>
+<p>3D画图</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">% 螺旋线</span><br><span class="line">octave:27&gt; plot3(cos(2*pi*z), sin(2*pi*z), z, &quot;;helix;&quot;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><img src="/202209/06/01/octave/image-20220909084110151.png" alt="image-20220909084110151" style="zoom:80%;"></li>
+<li>xlabel和ylabel可以照常使用，同时还有新的zlabel命令</li>
+<li>线条样式的选项也可以使用</li>
+</ul>
+<blockquote>
+<p>调整3D绘图结果的视角</p>
+</blockquote>
+<ul>
+<li>使用鼠标</li>
+<li>使用<code>view</code>命令定量的确定一个特定的视角</li>
+</ul>
+<blockquote>
+<p>3D绘图——曲面的绘制</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">octave:29&gt;  x=2:0.2:4;</span><br><span class="line">octave:30&gt; y=1:0.2:3;</span><br><span class="line">octave:31&gt; [X,Y]=meshgrid(x,y)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>初始化网格点</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">octave:33&gt; Z=(X-3).^2-(Y-2).^2;</span><br><span class="line">octave:34&gt; subplot(2, 2, 1);surf(Z);title(&#x27;surf&#x27;)</span><br><span class="line">octave:35&gt; subplot(2,2,2);mesh(Z);title(&#x27;mesh&#x27;)</span><br><span class="line">octave:36&gt;  subplot(2,2,3);meshz(Z);title(&#x27;meshz&#x27;)</span><br><span class="line">octave:37&gt;  subplot(2,2,4);contour(Z);title(&#x27;contour&#x27;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>$f(x, y) &#x3D; (x − 3)^2 − (y − 2)^2$</li>
+<li><img src="/202209/06/01/octave/image-20220909090102233.png" alt="image-20220909090102233" style="zoom:80%;"></li>
+</ul>
+<h2 id="复数"><a href="#复数" class="headerlink" title="复数"></a>复数</h2><blockquote>
+<p>复数的创建</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">octave:43&gt; z = 4 - 3i</span><br><span class="line">z =  4 - 3i</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><img src="/202209/06/01/octave/image-20220909092518664.png" alt="image-20220909092518664" style="zoom:100%;"></li>
+<li><code>i</code>和<code>j</code>都可以代表单位虚数</li>
+</ul>
+<blockquote>
+<p>复数运算</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">octave:46&gt; z2-z1</span><br><span class="line">ans = -3 + 6i</span><br><span class="line">octave:47&gt; z1+z2</span><br><span class="line">ans = 5</span><br><span class="line">octave:48&gt; z1/z2</span><br><span class="line">ans = -0.5000 - 1.5000i</span><br><span class="line">octave:49&gt; z1^2</span><br><span class="line">ans =   7 - 24i</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>内建函数如$sin(x)$或者$e^x$都支持复数</li>
+</ul>
+<blockquote>
+<p>绘制复数</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">octave:50&gt; plot(z1, &#x27;*&#x27;, z2, &#x27;*&#x27;)</span><br><span class="line">octave:51&gt; axis([-5 5 -5 5])</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><img src="/202209/06/01/octave/image-20220909093328080.png" alt="image-20220909093328080" style="zoom:80%;"></li>
+</ul>
+<h2 id="多项式求根"><a href="#多项式求根" class="headerlink" title="多项式求根"></a>多项式求根</h2><p>提供了一个roots命令来求解多项式的根</p>
+<p>方程通过其系数的向量表示来传递给roots函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">octave:57&gt; roots([1 2 -5 0 1 3])</span><br><span class="line">ans =</span><br><span class="line">  -3.4473 +      0i</span><br><span class="line">   1.1730 + 0.3902i</span><br><span class="line">   1.1730 - 0.3902i</span><br><span class="line">  -0.4494 + 0.6062i</span><br><span class="line">  -0.4494 - 0.6062i</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>$x^5 + 2x^4 − 5x^3 + x + 3 &#x3D; 0$</li>
+</ul>
+<h2 id="可执行程序"><a href="#可执行程序" class="headerlink" title="可执行程序"></a>可执行程序</h2><p>&#x3D;&#x3D;使用Linux的Ubuntu系统&#x3D;&#x3D;</p>
+<blockquote>
+<p>创建可执行程序</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/octave -qf</span><br><span class="line"># a sample Octave program</span><br><span class="line">printf(&quot;Hello, world!\n&quot;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>该文件第一行必须以<code>#!</code>开头。列出用于解释文件中语句的解释器的绝对路径和名称，还可以为该解释器指定一定的执行选项</p>
+</li>
+<li><p><code>-q</code> 选项能够屏蔽程序在普通情况下执行时输出到标准输出的一些介绍性的信息</p>
+</li>
+<li><p><code>f</code> 选项能够让程序忽略用户的在文件<code>~/.octaverc</code>中的一些设置</p>
+<ul>
+<li>比如，如果你的Octave程序中调用了一些自定义的函数，而这样的函数在你自定义的path中，那么使用<code>-f</code>选项时，Octave会报错表示无法找到你的那个特定的函数</li>
+</ul>
+</li>
+<li><p>Octave程序在系统终端执行的时候，还可以为其添加一些参数。这样的参数通过Octave的内部变量argv存储</p>
+</li>
+<li><p>该文件不加文件后缀名</p>
+</li>
+<li><p>添加可执行权限</p>
+<ul>
+<li><pre><code class="shell">xuan@xuan-virtual-machine:~/桌面/test$ chmod u+x test
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 运行</span><br><span class="line"></span><br><span class="line">  - ```shell</span><br><span class="line">    xuan@xuan-virtual-machine:~/桌面/test$ ./test</span><br><span class="line">    Hello, world!</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+<li><p>可以将test文件加入到系统PATH变量所在的目录中，就可以像调用<code>cd</code>等命令一样调用<code>test</code>命令了</p>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>argv实例</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/octave -qf</span><br><span class="line">printf(&quot;%s\n&quot;, program_name());</span><br><span class="line">arg_list = argv();</span><br><span class="line">for i = 1:nargin</span><br><span class="line">	printf(&quot; %s\n&quot;, arg_list&#123;i&#125;);</span><br><span class="line">endfor</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">xuan@xuan-virtual-machine:~/桌面/test$ chmod u+x test</span><br><span class="line">xuan@xuan-virtual-machine:~/桌面/test$ ./test</span><br><span class="line">test</span><br><span class="line">xuan@xuan-virtual-machine:~/桌面/test$ ./test arg1 arg2 arg3</span><br><span class="line">test</span><br><span class="line"> arg1</span><br><span class="line"> arg2</span><br><span class="line"> arg3</span><br></pre></td></tr></table></figure>
+
+
+
+
+    </div>
+
+    
+    
+    
+
+    
+      <div>
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:24px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      </div>
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>xuan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://xuan51.github.io/202209/06/01/octave/" title="octave">https://xuan51.github.io/202209/06/01/octave/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/wechat_channel.jpg">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/08/30/markdown%E8%AF%AD%E6%B3%95/" rel="prev" title="markdown语法">
+      <i class="fa fa-chevron-left"></i> markdown语法
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC81NzE1Ny8zMzYyMQ=="></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Octave"><span class="nav-number">1.</span> <span class="nav-text">Octave</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86"><span class="nav-number">1.1.</span> <span class="nav-text">基本知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E5%92%8C%E5%90%91%E9%87%8F"><span class="nav-number">1.2.</span> <span class="nav-text">数组和向量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%BB%E5%9B%BE"><span class="nav-number">1.3.</span> <span class="nav-text">画图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%84%9A%E6%9C%AC%E6%96%87%E4%BB%B6"><span class="nav-number">1.4.</span> <span class="nav-text">脚本文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.5.</span> <span class="nav-text">控制语句</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#if%E2%80%A6else%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.5.1.</span> <span class="nav-text">if…else语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#switch%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.5.2.</span> <span class="nav-text">switch语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.5.3.</span> <span class="nav-text">for语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#while%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.5.4.</span> <span class="nav-text">while语句</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0"><span class="nav-number">1.6.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5%E5%92%8C%E5%90%91%E9%87%8F"><span class="nav-number">1.7.</span> <span class="nav-text">矩阵和向量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5%E4%B9%98%E6%B3%95"><span class="nav-number">1.7.1.</span> <span class="nav-text">矩阵乘法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5%E5%88%9B%E5%BB%BA%E5%87%BD%E6%95%B0"><span class="nav-number">1.7.2.</span> <span class="nav-text">矩阵创建函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%BB%E5%9B%BE%E8%BF%9B%E9%98%B6"><span class="nav-number">1.8.</span> <span class="nav-text">画图进阶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E6%95%B0"><span class="nav-number">1.9.</span> <span class="nav-text">复数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E9%A1%B9%E5%BC%8F%E6%B1%82%E6%A0%B9"><span class="nav-number">1.10.</span> <span class="nav-text">多项式求根</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E6%89%A7%E8%A1%8C%E7%A8%8B%E5%BA%8F"><span class="nav-number">1.11.</span> <span class="nav-text">可执行程序</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="xuan"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">xuan</p>
+  <div class="site-description" itemprop="description">不患无位，患所以立；不患莫己知，求为可知也。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xuan51" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xuan51" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://baidu.com/" title="https:&#x2F;&#x2F;baidu.com&#x2F;" rel="noopener" target="_blank">百度</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.zhihu.com/" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;" rel="noopener" target="_blank">知乎</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.csdn.net/" title="https:&#x2F;&#x2F;blog.csdn.net&#x2F;" rel="noopener" target="_blank">CSDN</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2022-08 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xuan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">总访客数<span id="busuanzi_value_site_uv"></span>人</span>
+    <span class="post-meta-divider">|</span>
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+$(document).ready(function() {
+
+    var int = setInterval(fixCount, 50);  // 50ms周期检测函数
+    var countOffset = 0;  // 初始化首次数据
+
+    function fixCount() {            
+       if (document.getElementById("busuanzi_container_site_pv").style.display != "none")
+        {
+            $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + countOffset); 
+            clearInterval(int);
+        }                  
+        if ($("#busuanzi_container_site_pv").css("display") != "none")
+        {
+            $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + countOffset); // 加上初始数据 
+            clearInterval(int); // 停止检测
+        }  
+    }
+       	
+});
+</script> 
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共8.8k字</span>
+</div>
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+</body>
+</html>
